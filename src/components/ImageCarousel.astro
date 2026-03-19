@@ -4,34 +4,99 @@ interface Props {
 }
 
 const { images } = Astro.props;
+
+const getInitialPosition = (index: number, total: number) => {
+  if (index === 0) return '0';
+  if (index === 1) return '1';
+  if (index === total - 1) return '-1';
+  return '99';
+};
 ---
 
-<section class="carousel" aria-label="Cabin gallery">
-  <div class="carousel-track" data-track>
-    {images.map((image, index) => (
-      <figure class="carousel-item" aria-label={`Gallery image ${index + 1}`}>
-        <img src={image} alt="Bush Baby cabin and surroundings" loading="lazy" />
-      </figure>
-    ))}
+<section class="carousel" data-carousel aria-label="Cabin gallery">
+  <div class="carousel-shell">
+    <button type="button" class="carousel-btn carousel-btn-prev" data-prev aria-label="Previous image">←</button>
+    <div class="carousel-stage" data-stage>
+      {images.map((image, index) => (
+        <figure
+          class={`carousel-item${index === 0 ? ' is-active' : ''}`}
+          data-item
+          data-index={index}
+          data-pos={getInitialPosition(index, images.length)}
+          aria-label={`Gallery image ${index + 1}`}
+          aria-hidden={index === 0 || index === 1 || index === images.length - 1 ? 'false' : 'true'}
+        >
+          <img src={image} alt="Bush Baby cabin and surroundings" loading="lazy" />
+        </figure>
+      ))}
+    </div>
+    <button type="button" class="carousel-btn carousel-btn-next" data-next aria-label="Next image">→</button>
   </div>
-  <div class="carousel-controls">
-    <button type="button" data-prev aria-label="Previous image">←</button>
-    <button type="button" data-next aria-label="Next image">→</button>
-  </div>
+  <div class="carousel-dots" data-dots aria-label="Carousel pagination"></div>
 </section>
 
 <script>
-  const root = document.currentScript?.closest('.carousel');
-  const track = root?.querySelector('[data-track]');
-  const prev = root?.querySelector('[data-prev]');
-  const next = root?.querySelector('[data-next]');
+  const initCarousel = (root) => {
+    const stage = root.querySelector('[data-stage]');
+    const prev = root.querySelector('[data-prev]');
+    const next = root.querySelector('[data-next]');
+    const dotsRoot = root.querySelector('[data-dots]');
+    const cards = Array.from(root.querySelectorAll('[data-item]'));
 
-  const scrollByCard = (direction) => {
-    if (!track) return;
-    const width = track.clientWidth * 0.9;
-    track.scrollBy({ left: width * direction, behavior: 'smooth' });
+    if (!stage || !prev || !next || !cards.length) return;
+
+    let activeIndex = 0;
+    let touchStartX = 0;
+
+    const toWrappedPosition = (index) => {
+      const count = cards.length;
+      const raw = (index - activeIndex + count) % count;
+      if (raw === count / 2 && count % 2 === 0) return -raw;
+      return raw > count / 2 ? raw - count : raw;
+    };
+
+    const goTo = (nextIndex) => {
+      activeIndex = (nextIndex + cards.length) % cards.length;
+      render();
+    };
+
+    const render = () => {
+      cards.forEach((card, index) => {
+        const position = toWrappedPosition(index);
+        card.dataset.pos = String(position);
+        const isVisible = Math.abs(position) <= 2;
+        card.classList.toggle('is-active', position === 0);
+        card.setAttribute('aria-hidden', isVisible ? 'false' : 'true');
+      });
+
+      if (!dotsRoot) return;
+      dotsRoot.innerHTML = '';
+      cards.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = `carousel-dot${index === activeIndex ? ' is-active' : ''}`;
+        dot.setAttribute('aria-label', `Go to image ${index + 1}`);
+        dot.addEventListener('click', () => goTo(index));
+        dotsRoot.appendChild(dot);
+      });
+    };
+
+    prev.addEventListener('click', () => goTo(activeIndex - 1));
+    next.addEventListener('click', () => goTo(activeIndex + 1));
+
+    stage.addEventListener('touchstart', (event) => {
+      touchStartX = event.touches[0]?.clientX ?? 0;
+    }, { passive: true });
+
+    stage.addEventListener('touchend', (event) => {
+      const touchEndX = event.changedTouches[0]?.clientX ?? 0;
+      const delta = touchEndX - touchStartX;
+      if (Math.abs(delta) < 30) return;
+      goTo(activeIndex + (delta < 0 ? 1 : -1));
+    });
+
+    render();
   };
 
-  prev?.addEventListener('click', () => scrollByCard(-1));
-  next?.addEventListener('click', () => scrollByCard(1));
+  document.querySelectorAll('[data-carousel]').forEach((node) => initCarousel(node));
 </script>
