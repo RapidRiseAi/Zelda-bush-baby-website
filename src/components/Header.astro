@@ -1,0 +1,43 @@
+---
+import { siteConfig } from '../config/site';
+const path = Astro.url.pathname;
+---
+
+<header class="site-header" data-header>
+  <div class="container nav-wrap">
+    <a href="/" class="wordmark" aria-label="Bush Baby home">Bush Baby</a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" data-toggle>Menu</button>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      {siteConfig.navItems.map((item) => (
+        <a class={path === item.href ? 'active' : ''} href={item.href}>{item.label}</a>
+      ))}
+      <a class="btn btn-primary" href="/contact#enquiry-form">Enquire Now</a>
+    </nav>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" data-mobile-nav>
+    {siteConfig.navItems.map((item) => (
+      <a class={path === item.href ? 'active' : ''} href={item.href}>{item.label}</a>
+    ))}
+    <a class="btn btn-primary" href="/contact#enquiry-form">Enquire Now</a>
+  </nav>
+</header>
+
+<script>
+  const header = document.querySelector('[data-header]');
+  const toggle = document.querySelector('[data-toggle]');
+  const mobileNav = document.querySelector('[data-mobile-nav]');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    mobileNav?.classList.toggle('open');
+  });
+
+  const onScroll = () => {
+    if (!header) return;
+    header.classList.toggle('solid', window.scrollY > 24);
+  };
+
+  onScroll();
+  window.addEventListener('scroll', onScroll);
+</script>

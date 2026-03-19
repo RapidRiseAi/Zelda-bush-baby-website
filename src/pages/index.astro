@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ImageCarousel from '../components/ImageCarousel.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import { siteConfig, cabinFacts, homeHighlights, pricing, attractions, faqItems } from '../config/site';
+---
+
+<BaseLayout title="Bush Baby | A Private Nature Escape in Sabie" description="Bush Baby is a warm, private self-catering cabin in Sabie designed for peaceful weekends and nature-filled stays." canonicalPath="/">
+  <Header />
+  <main>
+    <section class="hero" style={`--hero:url(${siteConfig.assets.hero})`}>
+      <div class="container hero-content">
+        <p class="eyebrow">Weekend Escape in Sabie</p>
+        <h1>A Private Nature Escape in Sabie</h1>
+        <p>Bush Baby is a warm self-catering cabin made for peaceful weekends, fresh air, beautiful views, and relaxed time away from the noise.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/contact#enquiry-form">{siteConfig.ctas.primary}</a>
+          <a class="btn btn-secondary" href="#summary">{siteConfig.ctas.secondary}</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="facts-strip">
+      <div class="container facts-grid">{cabinFacts.slice(0, 6).map((fact) => <p>{fact}</p>)}</div>
+    </section>
+
+    <section class="section" id="summary">
+      <div class="container split">
+        <div>
+          <h2>Stay at the Bush Baby cabin for comfort, calm, and connection.</h2>
+          <p>A cozy self-catering cabin in Sabie, perfect for guests looking for privacy, nature, and a relaxed weekend escape.</p>
+        </div>
+        <div class="card">
+          <h3>Quick Cabin Summary</h3>
+          <ul>{cabinFacts.map((fact) => <li>{fact}</li>)}</ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section muted">
+      <div class="container">
+        <h2>Why Guests Will Love It</h2>
+        <div class="grid-3">{homeHighlights.map((item) => <article class="card"><h3>{item.title}</h3><p>{item.description}</p></article>)}</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container"><h2>Inside Bush Baby</h2><ImageCarousel images={siteConfig.assets.carousel} /></div>
+    </section>
+
+    <section class="section split-image">
+      <div class="container split">
+        <div>
+          <h2>Pricing Snapshot</h2>
+          <ul>
+            <li>{pricing.base}</li><li>{pricing.childUnderTwo}</li><li>{pricing.ages3to16}</li><li>{pricing.ages17Plus}</li>
+          </ul>
+          <p>{pricing.note}</p>
+          <a class="btn btn-primary" href="/contact#enquiry-form">Enquire About Your Stay</a>
+        </div>
+        <img src={siteConfig.assets.experienceImage} alt="Bush Baby interior lounge" loading="lazy" />
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container split">
+        <img src={siteConfig.assets.experienceImage} alt="Warm and cozy cabin experience" loading="lazy" />
+        <div>
+          <h2>Slow down and settle into nature.</h2>
+          <p>From morning coffee with a view to quiet evenings in the cabin, Bush Baby is built for moments that feel easy and meaningful.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section muted">
+      <div class="container">
+        <h2>Nearby Attractions</h2>
+        <div class="grid-3">{attractions.slice(0, 6).map((item) => <article class="card"><h3>{item.title}</h3><p>{item.description}</p><small>{item.driveNote}</small></article>)}</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Frequently Asked Questions</h2>
+        <FaqAccordion items={faqItems} />
+      </div>
+    </section>
+
+    <section class="section cta-banner">
+      <div class="container">
+        <h2>Ready for your next peaceful weekend in Sabie?</h2>
+        <p>Send a quick enquiry and we’ll confirm availability and next steps personally.</p>
+        <a class="btn btn-primary" href="/contact#enquiry-form">Contact / Book</a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
