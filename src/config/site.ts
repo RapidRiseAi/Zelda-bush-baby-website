@@ -19,18 +19,17 @@ export const siteConfig = {
     { label: 'Contact / Book', href: '/contact' }
   ],
   assets: {
-    logo: '/logo/bush-baby-wordmark.svg',
-    hero: '/hero/home-hero.svg',
-    experienceImage: '/hero/experience.svg',
-    aboutHero: '/hero/about-hero.svg',
-    aboutHost: '/hero/host.svg',
-    contactHero: '/hero/contact-hero.svg',
+    logo: '/logo/bush-baby-wordmark.png',
+    hero: '/hero/home-hero.png',
+    experienceImage: '/hero/experience.png',
+    aboutHero: '/hero/about-hero.png',
+    aboutHost: '/hero/host.png',
+    contactHero: '/hero/contact-hero.png',
     carousel: [
-      '/carousel/carousel-01.svg',
-      '/carousel/carousel-02.svg',
-      '/carousel/carousel-03.svg',
-      '/carousel/carousel-04.svg',
-      '/carousel/carousel-05.svg'
+      '/carousel/carousel-01.png',
+      '/carousel/carousel-02.png',
+      '/carousel/carousel-03.png',
+      '/carousel/carousel-04.png'
     ]
   }
 };
