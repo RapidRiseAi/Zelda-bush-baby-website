@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { siteConfig, bookingTerms, enquiryEndpoint } from '../config/site';
+---
+
+<BaseLayout title="Contact & Book | Bush Baby Sabie" description="Send your Bush Baby booking enquiry and receive a personal availability confirmation." canonicalPath="/contact">
+  <Header />
+  <main>
+    <section class="page-hero" style={`--hero:url(${siteConfig.assets.contactHero})`}>
+      <div class="container"><h1>Contact / Book</h1><p>Share your preferred dates and guest details. We’ll confirm availability personally.</p></div>
+    </section>
+
+    <section class="section"><div class="container split"><div class="card"><h2>Contact Details</h2><p><strong>Phone:</strong> <a href={`tel:${siteConfig.contact.phoneLink}`}>{siteConfig.contact.phoneDisplay}</a></p><p><strong>Email:</strong> <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a></p><p><strong>WhatsApp:</strong> <a href={siteConfig.contact.whatsappLink}>Message us on WhatsApp</a></p><p><strong>Location:</strong> {siteConfig.location} (exact address shared after booking steps)</p></div><div class="card"><h2>Booking Process</h2><ol><li>Submit your enquiry form.</li><li>We check availability and any special requests.</li><li>You receive manual confirmation with payment terms.</li><li>Your stay is confirmed after acceptance.</li></ol></div></div></section>
+
+    <section class="section muted" id="enquiry-form">
+      <div class="container narrow">
+        <h2>Main Enquiry Form</h2>
+        <form class="enquiry-form" data-enquiry-form>
+          <label>Full Name<input required name="fullName" /></label>
+          <label>Phone Number<input required type="tel" name="phone" /></label>
+          <label>Email Address<input required type="email" name="email" /></label>
+          <label>Preferred Check-in Date<input required type="date" name="checkIn" /></label>
+          <label>Preferred Check-out Date<input required type="date" name="checkOut" /></label>
+          <label>Number of Adults<input required type="number" min="1" name="adults" /></label>
+          <label>Number of Children<input required type="number" min="0" name="children" /></label>
+          <label>Are pets included?
+            <select name="pets" required><option value="No">No</option><option value="Yes">Yes</option></select>
+          </label>
+          <label>Message or special requests<textarea name="message" rows="4"></textarea></label>
+          <button class="btn btn-primary" type="submit">Enquire About Your Stay</button>
+          <p data-status role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="section"><div class="container narrow"><h2>Booking Terms Snapshot</h2><ul>{bookingTerms.map((term) => <li>{term}</li>)}</ul></div></section>
+    <section class="section cta-banner"><div class="container"><h2>Private stay. Personal support. Clear process.</h2><p>Your enquiry goes directly to the Bush Baby host for a trusted, manual confirmation process.</p></div></section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<script define:vars={{ enquiryEndpoint }}>
+  const form = document.querySelector('[data-enquiry-form]');
+  const status = form?.querySelector('[data-status]');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!form || !status) return;
+
+    const data = new FormData(form);
+    const payload = Object.fromEntries(data.entries());
+
+    const checkIn = new Date(String(payload.checkIn));
+    const checkOut = new Date(String(payload.checkOut));
+    if (Number.isNaN(checkIn.valueOf()) || Number.isNaN(checkOut.valueOf()) || checkOut <= checkIn) {
+      status.textContent = 'Please choose a valid check-in and check-out range.';
+      return;
+    }
+
+    if (!enquiryEndpoint) {
+      status.textContent = 'Thanks! Your form is ready, but no enquiry endpoint is configured yet.';
+      return;
+    }
+
+    status.textContent = 'Sending your enquiry...';
+    try {
+      const response = await fetch(enquiryEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) throw new Error('Submission failed');
+      form.reset();
+      status.textContent = 'Your enquiry was sent successfully. We will reply soon.';
+    } catch {
+      status.textContent = 'We could not send your enquiry right now. Please call or WhatsApp us directly.';
+    }
+  });
+</script>
