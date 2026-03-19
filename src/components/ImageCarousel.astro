@@ -13,8 +13,8 @@ const getInitialPosition = (index: number, total: number) => {
 };
 ---
 
-<section class="carousel" aria-label="Cabin gallery">
-  <div class="carousel-shell" data-carousel>
+<section class="carousel" data-carousel aria-label="Cabin gallery">
+  <div class="carousel-shell">
     <button type="button" class="carousel-btn carousel-btn-prev" data-prev aria-label="Previous image">←</button>
     <div class="carousel-stage" data-stage>
       {images.map((image, index) => (
@@ -36,24 +36,28 @@ const getInitialPosition = (index: number, total: number) => {
 </section>
 
 <script>
-  const root = document.currentScript?.closest('.carousel');
-  const carousel = root?.querySelector('[data-carousel]');
-  const stage = root?.querySelector('[data-stage]');
-  const prev = root?.querySelector('[data-prev]');
-  const next = root?.querySelector('[data-next]');
-  const dotsRoot = root?.querySelector('[data-dots]');
-  const cards = Array.from(root?.querySelectorAll('[data-item]') ?? []);
+  const initCarousel = (root) => {
+    const stage = root.querySelector('[data-stage]');
+    const prev = root.querySelector('[data-prev]');
+    const next = root.querySelector('[data-next]');
+    const dotsRoot = root.querySelector('[data-dots]');
+    const cards = Array.from(root.querySelectorAll('[data-item]'));
 
-  if (!carousel || !stage || !prev || !next || !cards.length) {
-    // No carousel to initialize
-  } else {
+    if (!stage || !prev || !next || !cards.length) return;
+
     let activeIndex = 0;
     let touchStartX = 0;
 
     const toWrappedPosition = (index) => {
       const count = cards.length;
       const raw = (index - activeIndex + count) % count;
+      if (raw === count / 2 && count % 2 === 0) return -raw;
       return raw > count / 2 ? raw - count : raw;
+    };
+
+    const goTo = (nextIndex) => {
+      activeIndex = (nextIndex + cards.length) % cards.length;
+      render();
     };
 
     const render = () => {
@@ -65,22 +69,16 @@ const getInitialPosition = (index: number, total: number) => {
         card.setAttribute('aria-hidden', isVisible ? 'false' : 'true');
       });
 
-      if (dotsRoot) {
-        dotsRoot.innerHTML = '';
-        cards.forEach((_, index) => {
-          const dot = document.createElement('button');
-          dot.type = 'button';
-          dot.className = `carousel-dot${index === activeIndex ? ' is-active' : ''}`;
-          dot.setAttribute('aria-label', `Go to image ${index + 1}`);
-          dot.addEventListener('click', () => goTo(index));
-          dotsRoot.appendChild(dot);
-        });
-      }
-    };
-
-    const goTo = (nextIndex) => {
-      activeIndex = (nextIndex + cards.length) % cards.length;
-      render();
+      if (!dotsRoot) return;
+      dotsRoot.innerHTML = '';
+      cards.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = `carousel-dot${index === activeIndex ? ' is-active' : ''}`;
+        dot.setAttribute('aria-label', `Go to image ${index + 1}`);
+        dot.addEventListener('click', () => goTo(index));
+        dotsRoot.appendChild(dot);
+      });
     };
 
     prev.addEventListener('click', () => goTo(activeIndex - 1));
@@ -98,5 +96,7 @@ const getInitialPosition = (index: number, total: number) => {
     });
 
     render();
-  }
+  };
+
+  document.querySelectorAll('[data-carousel]').forEach((node) => initCarousel(node));
 </script>
