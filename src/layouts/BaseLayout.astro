@@ -10,7 +10,7 @@ interface Props {
 
 const { title, description, canonicalPath = '/' } = Astro.props;
 const canonicalUrl = new URL(canonicalPath, Astro.site);
-const ogImage = `${Astro.site}hero/home-hero.png`;
+const ogImage = `${Astro.site}hero/home-hero.svg`;
 ---
 
 <!doctype html>
@@ -30,7 +30,7 @@ const ogImage = `${Astro.site}hero/home-hero.png`;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <link rel="icon" type="image/png" href="/logo/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/logo/favicon.svg" />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'LodgingBusiness',
