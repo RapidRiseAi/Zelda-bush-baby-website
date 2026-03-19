@@ -42,10 +42,14 @@ img { max-width: 100%; display: block; border-radius: var(--radius); }
 .split { display: grid; gap: 2rem; align-items: center; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.2rem; }
 .grid-3 { display: grid; gap: 1rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.carousel-track { display: grid; grid-auto-flow: column; grid-auto-columns: 82%; overflow-x: auto; gap: .9rem; scroll-snap-type: x mandatory; }
-.carousel-item { margin: 0; scroll-snap-align: start; }
-.carousel-controls { display: flex; justify-content: end; gap: .5rem; margin-top: .8rem; }
-.carousel-controls button { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; width: 2.25rem; height: 2.25rem; }
+.carousel { width: min(960px, 100%); margin: 0 auto; }
+.carousel-shell { position: relative; display: flex; align-items: center; }
+.carousel-track { display: grid; grid-auto-flow: column; grid-auto-columns: 78%; overflow-x: auto; gap: .9rem; scroll-snap-type: x mandatory; padding-inline: 2.6rem; scrollbar-width: thin; }
+.carousel-item { margin: 0; scroll-snap-align: center; }
+.carousel-item img { width: 100%; max-height: 420px; object-fit: cover; border-radius: var(--radius); }
+.carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); border: 1px solid var(--line); background: #fffdf9d9; border-radius: 999px; width: 2.5rem; height: 2.5rem; z-index: 2; box-shadow: var(--shadow); }
+.carousel-btn-prev { left: 0.4rem; }
+.carousel-btn-next { right: 0.4rem; }
 .faq-list details { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; margin-bottom: .8rem; padding: .8rem 1rem; }
 .faq-list summary { cursor: pointer; font-weight: 600; }
 .site-footer { background: #281d16; color: #f1e8de; padding: 3rem 0; }
@@ -64,4 +68,7 @@ input:focus,select:focus,textarea:focus,a:focus,button:focus { outline: 2px soli
   .mobile-nav.open { display: grid; gap: .8rem; }
   .split,.grid-3,.footer-grid,.facts-grid { grid-template-columns: 1fr; }
   .hero,.page-hero { min-height: 66vh; }
+  .carousel-track { grid-auto-columns: 88%; padding-inline: 2.2rem; }
+  .carousel-item img { max-height: 300px; }
+  .carousel-btn { width: 2.2rem; height: 2.2rem; }
 }

@@ -7,16 +7,16 @@ const { images } = Astro.props;
 ---
 
 <section class="carousel" aria-label="Cabin gallery">
-  <div class="carousel-track" data-track>
-    {images.map((image, index) => (
-      <figure class="carousel-item" aria-label={`Gallery image ${index + 1}`}>
-        <img src={image} alt="Bush Baby cabin and surroundings" loading="lazy" />
-      </figure>
-    ))}
-  </div>
-  <div class="carousel-controls">
-    <button type="button" data-prev aria-label="Previous image">←</button>
-    <button type="button" data-next aria-label="Next image">→</button>
+  <div class="carousel-shell">
+    <button type="button" class="carousel-btn carousel-btn-prev" data-prev aria-label="Previous image">←</button>
+    <div class="carousel-track" data-track>
+      {images.map((image, index) => (
+        <figure class="carousel-item" aria-label={`Gallery image ${index + 1}`}>
+          <img src={image} alt="Bush Baby cabin and surroundings" loading="lazy" />
+        </figure>
+      ))}
+    </div>
+    <button type="button" class="carousel-btn carousel-btn-next" data-next aria-label="Next image">→</button>
   </div>
 </section>
 
