@@ -16,21 +16,15 @@
   }
 
   .hero-mobile {
-    min-height: 76svh;
+    min-height: 72svh;
     align-items: end;
   }
 
   .hero-content-mobile {
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.1rem;
     max-width: 100%;
-  }
-
-  .glass-panel {
-    background: linear-gradient(145deg, rgba(38, 30, 24, 0.7), rgba(38, 30, 24, 0.32));
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    padding: 1rem;
-    backdrop-filter: blur(6px);
+    padding: 0 0.15rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
   }
 
   .mobile-trust-row {
@@ -45,6 +39,7 @@
     padding: 0.2rem 0.6rem;
     border-radius: 999px;
     font-size: 0.8rem;
+    background: rgba(0, 0, 0, 0.2);
   }
 
   .mobile-hero-cta {
@@ -54,6 +49,7 @@
   .mobile-secondary-link {
     display: inline-block;
     margin-top: 0.7rem;
+    margin-left: 0.5rem;
     text-decoration: underline;
     text-underline-offset: 3px;
   }
@@ -65,21 +61,38 @@
   .mobile-facts-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
+    gap: 0.65rem;
   }
 
   .mobile-pill-card {
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 12px;
-    padding: 0.85rem;
+    padding: 0.7rem 0.75rem;
     box-shadow: var(--shadow);
   }
 
   .mobile-pill-card p {
     margin: 0;
-    line-height: 1.35;
+    line-height: 1.3;
     font-size: 0.92rem;
+  }
+
+  .about-facts-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .about-fact-card {
+    padding: 0.85rem 1rem;
+    min-height: auto;
+    box-shadow: none;
+  }
+
+  .about-fact-card p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.35;
   }
 
   .section-heading-row {
@@ -152,12 +165,17 @@
 
   .mobile-nav {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh;
+    overflow-y: auto;
     display: none;
     align-content: start;
     gap: 0.95rem;
-    padding: 6rem 6% 2rem;
-    background: linear-gradient(165deg, #2d211a, #1f1712);
+    padding: max(5.5rem, calc(env(safe-area-inset-top) + 4rem)) 6% 2rem;
+    background: #1f1712;
+    z-index: 41;
   }
 
   .mobile-nav.open {
