@@ -14,7 +14,7 @@ import { siteConfig, cabinFacts } from '../config/site';
 
     <section class="section"><div class="container narrow"><h2>Our Story</h2><p>Bush Baby began as a shared dream between host and husband: to create a peaceful place where guests could rest, reconnect, and enjoy Sabie’s natural beauty. After his passing, that dream continues with the same heart, now carried forward with care, gratitude, and personal attention to each enquiry.</p><p>This is not a large, anonymous holiday operation. It is a welcoming cabin where hospitality stays human and thoughtful.</p></div></section>
 
-    <section class="section muted"><div class="container"><h2>What Guests Can Expect</h2><div class="grid-3">{cabinFacts.map((fact) => <article class="card"><p>{fact}</p></article>)}</div></div></section>
+    <section class="section muted"><div class="container"><h2>What Guests Can Expect</h2><div class="grid-3 about-facts-grid">{cabinFacts.map((fact) => <article class="card about-fact-card"><p>{fact}</p></article>)}</div></div></section>
 
     <section class="section"><div class="container split"><img src={siteConfig.assets.aboutHost} alt="Bush Baby host welcome" loading="lazy" /><div><h2>A Personal Welcome</h2><p>Hello and welcome to Bush Baby. Thank you for considering our cabin for your stay in Sabie. Every enquiry is handled personally, and I’m always happy to help you plan a comfortable visit that suits your group and travel dates.</p><p>I look forward to hosting you with warmth, honesty, and genuine care.</p></div></div></section>
 

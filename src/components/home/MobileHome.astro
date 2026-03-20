@@ -1,0 +1,94 @@
+---
+import ImageCarousel from '../ImageCarousel.astro';
+import FaqAccordion from '../FaqAccordion.astro';
+import { siteConfig, cabinFacts, pricing, attractions, faqItems } from '../../config/site';
+
+const mobileFacts = cabinFacts.slice(0, 4);
+const mobileAttractions = attractions.slice(0, 4);
+---
+
+<section class="hero hero-mobile" style={`--hero:url(${siteConfig.assets.hero})`}>
+  <div class="container hero-content hero-content-mobile">
+    <p class="eyebrow">Private Cabin Escape</p>
+    <h1>Premium comfort in the Sabie bush.</h1>
+    <p>Quiet mornings, scenic views, and a private self-catering stay curated for rest.</p>
+    <div class="mobile-trust-row" aria-label="Key stay details">
+      <span>Private Cabin</span>
+      <span>Sabie</span>
+      <span>Self-catering</span>
+    </div>
+    <a class="btn btn-primary mobile-hero-cta" href="/contact#enquiry-form">Check Availability</a>
+    <a class="mobile-secondary-link" href="#mobile-gallery">View Photos</a>
+  </div>
+</section>
+
+<section class="section mobile-facts-section">
+  <div class="container mobile-facts-grid">
+    {mobileFacts.map((fact) => (
+      <article class="mobile-pill-card">
+        <p>{fact}</p>
+      </article>
+    ))}
+  </div>
+</section>
+
+<section class="section" id="mobile-gallery">
+  <div class="container">
+    <div class="section-heading-row">
+      <h2>Inside Bush Baby</h2>
+      <a href="/about">See full story</a>
+    </div>
+    <ImageCarousel images={siteConfig.assets.carousel} />
+  </div>
+</section>
+
+<section class="section muted">
+  <div class="container">
+    <article class="card mobile-pricing-card">
+      <p class="mobile-kicker">Pricing snapshot</p>
+      <h2>Simple, transparent rates</h2>
+      <ul>
+        <li>{pricing.base}</li>
+        <li>{pricing.childUnderTwo}</li>
+        <li>{pricing.ages3to16}</li>
+        <li>{pricing.ages17Plus}</li>
+      </ul>
+      <p>{pricing.note}</p>
+      <a class="btn btn-primary" href="/contact#enquiry-form">Enquire About Your Stay</a>
+    </article>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Nearby Highlights</h2>
+    <div class="mobile-rail" role="list">
+      {mobileAttractions.map((item) => (
+        <article class="card mobile-rail-card" role="listitem">
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+          <small>{item.driveNote}</small>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section muted">
+  <div class="container">
+    <h2>Frequently Asked Questions</h2>
+    <FaqAccordion items={faqItems} />
+  </div>
+</section>
+
+<section class="section cta-banner mobile-banner">
+  <div class="container">
+    <h2>Ready for your peaceful weekend?</h2>
+    <p>Message us and we’ll confirm your dates personally.</p>
+  </div>
+</section>
+
+<div class="mobile-sticky-cta" aria-label="Quick actions">
+  <a class="btn btn-primary" href="/contact#enquiry-form">Check availability</a>
+  <a class="btn mobile-whatsapp-btn" href={siteConfig.contact.whatsappLink}>WhatsApp</a>
+</div>
