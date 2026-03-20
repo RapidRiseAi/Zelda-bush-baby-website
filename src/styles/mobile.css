@@ -1,0 +1,189 @@
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  .section {
+    padding: 3.2rem 0;
+  }
+
+  .hero-mobile {
+    min-height: 76svh;
+    align-items: end;
+  }
+
+  .hero-content-mobile {
+    margin-bottom: 0.75rem;
+    max-width: 100%;
+  }
+
+  .glass-panel {
+    background: linear-gradient(145deg, rgba(38, 30, 24, 0.7), rgba(38, 30, 24, 0.32));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 1rem;
+    backdrop-filter: blur(6px);
+  }
+
+  .mobile-trust-row {
+    margin-top: 0.85rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .mobile-trust-row span {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+  }
+
+  .mobile-hero-cta {
+    margin-top: 1rem;
+  }
+
+  .mobile-secondary-link {
+    display: inline-block;
+    margin-top: 0.7rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .mobile-facts-section {
+    padding-top: 1.1rem;
+  }
+
+  .mobile-facts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .mobile-pill-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 0.85rem;
+    box-shadow: var(--shadow);
+  }
+
+  .mobile-pill-card p {
+    margin: 0;
+    line-height: 1.35;
+    font-size: 0.92rem;
+  }
+
+  .section-heading-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .section-heading-row a {
+    font-size: 0.9rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .mobile-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+    margin-bottom: 0.2rem;
+    color: var(--muted);
+  }
+
+  .mobile-pricing-card ul {
+    padding-left: 1rem;
+  }
+
+  .mobile-rail {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(82%, 1fr);
+    overflow-x: auto;
+    gap: 0.8rem;
+    padding-bottom: 0.2rem;
+    scroll-snap-type: x mandatory;
+  }
+
+  .mobile-rail-card {
+    scroll-snap-align: center;
+  }
+
+  .mobile-banner {
+    padding-bottom: 6rem;
+  }
+
+  .mobile-sticky-cta {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 0.6rem;
+    padding: 0.7rem max(4%, env(safe-area-inset-right)) calc(0.7rem + env(safe-area-inset-bottom)) max(4%, env(safe-area-inset-left));
+    background: rgba(247, 243, 238, 0.96);
+    border-top: 1px solid var(--line);
+    backdrop-filter: blur(8px);
+  }
+
+  .mobile-whatsapp-btn {
+    background: #1f6f4f;
+    color: #fff;
+    text-align: center;
+  }
+
+  .site-header {
+    z-index: 40;
+  }
+
+  .mobile-nav {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-content: start;
+    gap: 0.95rem;
+    padding: 6rem 6% 2rem;
+    background: linear-gradient(165deg, #2d211a, #1f1712);
+  }
+
+  .mobile-nav.open {
+    display: grid;
+  }
+
+  .mobile-nav a {
+    color: #f5ede4;
+    font-size: 1.1rem;
+  }
+
+  .menu-toggle {
+    position: relative;
+    z-index: 42;
+  }
+
+  body.menu-open {
+    overflow: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-nav,
+  .mobile-sticky-cta,
+  .btn,
+  .carousel-item {
+    transition: none !important;
+  }
+}
