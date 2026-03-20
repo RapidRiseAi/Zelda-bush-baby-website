@@ -26,40 +26,11 @@ const path = Astro.url.pathname;
   const header = document.querySelector('[data-header]');
   const toggle = document.querySelector('[data-toggle]');
   const mobileNav = document.querySelector('[data-mobile-nav]');
-  const mobileNavLinks = mobileNav?.querySelectorAll('a');
-
-  const closeMenu = () => {
-    if (!toggle) return;
-    toggle.setAttribute('aria-expanded', 'false');
-    toggle.textContent = 'Menu';
-    mobileNav?.classList.remove('open');
-    document.body.classList.remove('menu-open');
-  };
-
-  const openMenu = () => {
-    if (!toggle) return;
-    toggle.setAttribute('aria-expanded', 'true');
-    toggle.textContent = 'Close';
-    mobileNav?.classList.add('open');
-    document.body.classList.add('menu-open');
-  };
 
   toggle?.addEventListener('click', () => {
     const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-    if (isOpen) {
-      closeMenu();
-      return;
-    }
-
-    openMenu();
-  });
-
-  mobileNavLinks?.forEach((link) => {
-    link.addEventListener('click', closeMenu);
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') closeMenu();
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    mobileNav?.classList.toggle('open');
   });
 
   const onScroll = () => {
