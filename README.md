@@ -47,15 +47,16 @@ npm run preview
 - Build command: `npm run build`
 - Output directory: `dist`
 - Node version: 18+
-- Environment variable:
+- Environment variables:
   - `PUBLIC_ENQUIRY_ENDPOINT` = deployed Google Apps Script Web App URL
+  - `ENQUIRY_WEBHOOK_SECRET` = same value as your Apps Script `WEBHOOK_SECRET` property (Cloudflare Worker secret)
 
 ### Option B (Wrangler deploy command)
-This repository includes `wrangler.jsonc` + `worker.js` so a non-interactive `npx wrangler deploy` can publish the static `dist/` output without running adapter auto-configuration.
+This repository includes `wrangler.jsonc` + `worker.js` so a non-interactive `npx wrangler deploy --keep-vars` can publish the static `dist/` output without running adapter auto-configuration.
 
 ```bash
 npm run build
-npx wrangler deploy
+npx wrangler deploy --keep-vars
 ```
 
 ## Editable Content (Single Source of Truth)
@@ -87,10 +88,10 @@ You may switch to `.jpg/.webp` later by updating the paths in `src/config/site.t
 
 ## Enquiry Form Integration
 
-The front-end posts JSON to `PUBLIC_ENQUIRY_ENDPOINT`.
+The front-end posts JSON to `/api/enquiry` on the Worker, and the Worker forwards to `PUBLIC_ENQUIRY_ENDPOINT`.
 
-- If endpoint is configured: form submits live.
-- If endpoint is missing: form shows a clean fallback status message so UX does not break.
+- This keeps `ENQUIRY_WEBHOOK_SECRET` off the browser and sends it server-side as `payload.secret`.
+- If the endpoint is missing, the API returns a config error so you can detect setup issues quickly.
 
 ### Google Apps Script setup
 
@@ -98,9 +99,11 @@ The front-end posts JSON to `PUBLIC_ENQUIRY_ENDPOINT`.
 2. Open Apps Script and paste `scripts/google-apps-script/Code.gs`.
 3. In Script Properties set:
    - `SHEET_ID` = target Google Sheet ID
-   - `MANAGER_EMAIL` = manager receiving enquiry emails
+   - `OWNER_EMAIL` = manager receiving booking emails
+   - `WEBHOOK_SECRET` = shared secret used by the Cloudflare Worker
 4. Deploy as **Web app** (Execute as: Me, Access: Anyone).
-5. Copy web app URL into Cloudflare env var `PUBLIC_ENQUIRY_ENDPOINT`.
+5. Copy web app URL into Cloudflare variable `PUBLIC_ENQUIRY_ENDPOINT`.
+6. Set Cloudflare Worker secret `ENQUIRY_WEBHOOK_SECRET` to the same value as Apps Script `WEBHOOK_SECRET`.
 
 ## Notes
 - Manual enquiry flow only (no calendar booking engine).

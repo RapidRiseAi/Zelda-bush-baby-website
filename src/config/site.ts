@@ -165,4 +165,3 @@ export const bookingTerms = [
   'Date changes are subject to availability and peak periods may have different terms.'
 ];
 
-export const enquiryEndpoint = import.meta.env.PUBLIC_ENQUIRY_ENDPOINT || '';
