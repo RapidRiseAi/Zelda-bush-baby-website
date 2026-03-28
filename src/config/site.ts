@@ -20,16 +20,24 @@ export const siteConfig = {
   ],
   assets: {
     logo: '/logo/bush-baby-wordmark.png',
-    hero: '/hero/home-hero.png',
-    experienceImage: '/hero/experience.png',
-    aboutHero: '/hero/about-hero.png',
-    aboutHost: '/hero/host.png',
-    contactHero: '/hero/contact-hero.png',
+    hero: '/slow-down-and-settle-into-nature.png',
+    experienceImage: '/pricing-snapshot-image.png',
+    aboutHero: '/slow-down-and-settle-into-nature.png',
+    aboutHost: '/host.jpeg',
+    contactHero: '/slow-down-and-settle-into-nature.png',
     carousel: [
-      '/carousel/carousel-01.png',
-      '/carousel/carousel-02.png',
-      '/carousel/carousel-03.png',
-      '/carousel/carousel-04.png'
+      '/carousel1.png',
+      '/carousel2.png',
+      '/carousel3.png',
+      '/carousel4.png',
+      '/carousel5.png',
+      '/carousel6.png',
+      '/carousel7.png',
+      '/carousel8.png',
+      '/carousel9.png',
+      '/carousel10.png',
+      '/carousel11.png',
+      '/carousel12.png'
     ]
   }
 };
