@@ -93,6 +93,15 @@ The front-end posts JSON to `/api/enquiry` on the Worker, and the Worker forward
 - This keeps `ENQUIRY_WEBHOOK_SECRET` off the browser and sends it server-side as `payload.secret`.
 - If the endpoint is missing, the API returns a config error so you can detect setup issues quickly.
 
+
+### Troubleshooting failed submissions
+
+If the form says it could not send, the UI now includes the backend error reason in parentheses.
+Common causes:
+- `Unauthorized request` means `ENQUIRY_WEBHOOK_SECRET` does not exactly match Apps Script `WEBHOOK_SECRET`.
+- `Missing Cloudflare variable: PUBLIC_ENQUIRY_ENDPOINT` means the Worker runtime variable is not set in the active environment.
+- `Apps Script returned HTTP ...` usually means the Apps Script Web App URL is wrong (must be the deployed `/exec` URL) or access is not set to **Anyone**.
+
 ### Google Apps Script setup
 
 1. Create a Google Sheet.

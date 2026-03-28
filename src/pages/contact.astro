@@ -67,11 +67,17 @@ import { siteConfig, bookingTerms } from '../config/site';
         body: JSON.stringify(payload)
       });
 
-      if (!response.ok) throw new Error('Submission failed');
+      const result = await response.json().catch(() => null);
+      if (!response.ok || result?.ok === false) {
+        const reason = result?.error ? ` (${result.error})` : '';
+        throw new Error(`Submission failed${reason}`);
+      }
+
       form.reset();
       status.textContent = 'Your enquiry was sent successfully. We will reply soon.';
-    } catch {
-      status.textContent = 'We could not send your enquiry right now. Please call or WhatsApp us directly.';
+    } catch (error) {
+      const detail = error instanceof Error && error.message ? ` ${error.message}` : '';
+      status.textContent = `We could not send your enquiry right now.${detail} Please call or WhatsApp us directly.`;
     }
   });
 </script>

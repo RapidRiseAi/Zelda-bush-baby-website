@@ -27,9 +27,9 @@ export default {
         return json({ ok: false, error: 'Method not allowed' }, 405);
       }
 
-      const endpoint = env.PUBLIC_ENQUIRY_ENDPOINT;
+      const endpoint = String(env.PUBLIC_ENQUIRY_ENDPOINT || '').trim();
       if (!endpoint) {
-        return json({ ok: false, error: 'Enquiry endpoint is not configured' }, 500);
+        return json({ ok: false, error: 'Missing Cloudflare variable: PUBLIC_ENQUIRY_ENDPOINT' }, 500);
       }
 
       let payload;
@@ -39,21 +39,52 @@ export default {
         return json({ ok: false, error: 'Invalid JSON body' }, 400);
       }
 
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          ...payload,
-          secret: env.ENQUIRY_WEBHOOK_SECRET || ''
-        })
-      });
+      let upstreamResponse;
+      try {
+        upstreamResponse = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            ...payload,
+            secret: String(env.ENQUIRY_WEBHOOK_SECRET || '').trim()
+          })
+        });
+      } catch (error) {
+        return json(
+          {
+            ok: false,
+            error: `Failed to reach Apps Script endpoint: ${error instanceof Error ? error.message : String(error)}`
+          },
+          502
+        );
+      }
 
-      return new Response(await response.text(), {
-        status: response.status,
-        headers: JSON_HEADERS
-      });
+      const rawBody = await upstreamResponse.text();
+      let parsed;
+      try {
+        parsed = rawBody ? JSON.parse(rawBody) : null;
+      } catch {
+        parsed = null;
+      }
+
+      if (!upstreamResponse.ok) {
+        return json(
+          {
+            ok: false,
+            error: parsed?.error || `Apps Script returned HTTP ${upstreamResponse.status}`,
+            upstreamStatus: upstreamResponse.status
+          },
+          upstreamResponse.status
+        );
+      }
+
+      if (!parsed || typeof parsed !== 'object') {
+        return json({ ok: false, error: 'Apps Script returned a non-JSON success response' }, 502);
+      }
+
+      return json(parsed, 200);
     }
 
     return env.ASSETS.fetch(request);
