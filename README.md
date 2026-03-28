@@ -91,6 +91,17 @@ These two values must remain stable between deployments:
 
 This repo now enables `keep_vars: true` in `wrangler.jsonc` to reduce accidental variable loss during deploys.
 
+#### Cloudflare warning: "Update your wrangler config file with these changes"
+
+If you add `ENQUIRY_WEBHOOK_SECRET` in the Cloudflare dashboard and see this warning, that is expected.
+
+- ✅ For **secrets**, keep them in Cloudflare dashboard / `wrangler secret put`.
+- ✅ Do **not** put secret values in `wrangler.jsonc` (that file is committed to git).
+- ✅ Continue deploying after saving the secret.
+- ✅ For local Wrangler dev, copy `.dev.vars.example` to `.dev.vars` and set local values.
+
+Only non-secret public vars (like `PUBLIC_ENQUIRY_ENDPOINT`) should live in `wrangler.jsonc`.
+
 ## Editable Content (Single Source of Truth)
 
 Edit `src/config/site.ts` for:
