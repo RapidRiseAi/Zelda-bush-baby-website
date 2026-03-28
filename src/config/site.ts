@@ -1,3 +1,21 @@
+import logoImage from '../../public/logo/bush-baby-wordmark.png';
+import heroImage from '../../hero-image.png';
+import hostImage from '../../host.jpeg';
+import pricingSnapshotImage from '../../pricing-snapshot-image.png';
+import slowDownImage from '../../slow-down-and-settle-into-nature.png';
+import carousel1 from '../../carousel1.png';
+import carousel2 from '../../carousel2.png';
+import carousel3 from '../../carousel3.png';
+import carousel4 from '../../carousel4.png';
+import carousel5 from '../../carousel5.png';
+import carousel6 from '../../carousel6.png';
+import carousel7 from '../../carousel7.png';
+import carousel8 from '../../carousel8.png';
+import carousel9 from '../../carousel9.png';
+import carousel10 from '../../carousel10.png';
+import carousel11 from '../../carousel11.png';
+import carousel12 from '../../carousel12.png';
+
 export const siteConfig = {
   businessName: 'Bush Baby',
   descriptor: 'Private nature getaway in Sabie',
@@ -19,26 +37,26 @@ export const siteConfig = {
     { label: 'Contact / Book', href: '/contact' }
   ],
   assets: {
-    logo: '/logo/bush-baby-wordmark.png',
-    hero: '/hero-image.png',
-    pricingSnapshotImage: '/pricing-snapshot-image.png',
-    slowDownImage: '/slow-down-and-settle-into-nature.png',
-    aboutHero: '/hero-image.png',
-    aboutHost: '/host.jpeg',
-    contactHero: '/hero-image.png',
+    logo: logoImage.src,
+    hero: heroImage.src,
+    pricingSnapshotImage: pricingSnapshotImage.src,
+    slowDownImage: slowDownImage.src,
+    aboutHero: heroImage.src,
+    aboutHost: hostImage.src,
+    contactHero: heroImage.src,
     carousel: [
-      '/carousel1.png',
-      '/carousel2.png',
-      '/carousel3.png',
-      '/carousel4.png',
-      '/carousel5.png',
-      '/carousel6.png',
-      '/carousel7.png',
-      '/carousel8.png',
-      '/carousel9.png',
-      '/carousel10.png',
-      '/carousel11.png',
-      '/carousel12.png'
+      carousel1.src,
+      carousel2.src,
+      carousel3.src,
+      carousel4.src,
+      carousel5.src,
+      carousel6.src,
+      carousel7.src,
+      carousel8.src,
+      carousel9.src,
+      carousel10.src,
+      carousel11.src,
+      carousel12.src
     ]
   }
 };
