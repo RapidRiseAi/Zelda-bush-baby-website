@@ -62,7 +62,7 @@ export const siteConfig = {
 };
 
 export const cabinFacts = [
-  'Sleeps 7 to 10',
+  'Sleeps up to 6',
   '2 Bedrooms',
   '1 Bathroom',
   'Self-catering',
