@@ -20,11 +20,11 @@ export const siteConfig = {
   ],
   assets: {
     logo: '/logo/bush-baby-wordmark.png',
-    hero: '/images/hero/slow-down-and-settle-into-nature.png',
-    experienceImage: '/images/content/pricing-snapshot-image.png',
-    aboutHero: '/images/hero/slow-down-and-settle-into-nature.png',
+    hero: '/images/hero/hero.png',
+    experienceImage: '/images/hero/hero.png',
+    aboutHero: '/images/hero/hero.png',
     aboutHost: '/images/hero/host.jpeg',
-    contactHero: '/images/hero/slow-down-and-settle-into-nature.png',
+    contactHero: '/images/hero/hero.png',
     carousel: [
       '/images/carousel/carousel1.png',
       '/images/carousel/carousel2.png',
