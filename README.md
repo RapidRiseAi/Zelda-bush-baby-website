@@ -48,7 +48,7 @@ npm run preview
 - Output directory: `dist`
 - Node version: 18+
 - Environment variables:
-  - `PUBLIC_ENQUIRY_ENDPOINT` = deployed Google Apps Script Web App URL
+  - `PUBLIC_ENQUIRY_ENDPOINT` = deployed Google Apps Script Web App URL (also committed in `wrangler.jsonc` so deploys do not remove it)
   - `ENQUIRY_WEBHOOK_SECRET` = same value as your Apps Script `WEBHOOK_SECRET` property (Cloudflare Worker secret)
 
 ### Option B (Wrangler deploy command)

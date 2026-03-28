@@ -6,5 +6,8 @@
   "assets": {
     "binding": "ASSETS",
     "directory": "dist"
+  },
+  "vars": {
+    "PUBLIC_ENQUIRY_ENDPOINT": "https://script.google.com/macros/s/AKfycbwcBOzLOr9uohdv-3JnfZS1K6tZFc3pITWxKtbiBylM9MmGVwJdYZPRbS3zq-glwyDx/exec"
   }
 }
