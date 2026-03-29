@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { siteConfig, bookingTerms, enquiryEndpoint } from '../config/site';
+import { siteConfig, bookingTerms } from '../config/site';
 ---
 
 <BaseLayout title="Contact & Book | Bush Baby Sabie" description="Send your Bush Baby booking enquiry and receive a personal availability confirmation." canonicalPath="/contact">
@@ -41,7 +41,7 @@ import { siteConfig, bookingTerms, enquiryEndpoint } from '../config/site';
   <Footer />
 </BaseLayout>
 
-<script define:vars={{ enquiryEndpoint }}>
+<script>
   const form = document.querySelector('[data-enquiry-form]');
   const status = form?.querySelector('[data-status]');
 
@@ -59,24 +59,25 @@ import { siteConfig, bookingTerms, enquiryEndpoint } from '../config/site';
       return;
     }
 
-    if (!enquiryEndpoint) {
-      status.textContent = 'Thanks! Your form is ready, but no enquiry endpoint is configured yet.';
-      return;
-    }
-
     status.textContent = 'Sending your enquiry...';
     try {
-      const response = await fetch(enquiryEndpoint, {
+      const response = await fetch('/api/enquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
 
-      if (!response.ok) throw new Error('Submission failed');
+      const result = await response.json().catch(() => null);
+      if (!response.ok || result?.ok === false) {
+        const reason = result?.error ? ` (${result.error})` : '';
+        throw new Error(`Submission failed${reason}`);
+      }
+
       form.reset();
       status.textContent = 'Your enquiry was sent successfully. We will reply soon.';
-    } catch {
-      status.textContent = 'We could not send your enquiry right now. Please call or WhatsApp us directly.';
+    } catch (error) {
+      const detail = error instanceof Error && error.message ? ` ${error.message}` : '';
+      status.textContent = `We could not send your enquiry right now.${detail} Please call or WhatsApp us directly.`;
     }
   });
 </script>
