@@ -124,22 +124,14 @@ export const attractions = [
 
 export const areaNotice = {
   title: 'Local Area Notice (External)',
-  summary: 'Updated SAFCOL ecotourism tariffs effective 1 April 2026.',
+  summary: 'Updated SAFCOL ecotourism tariffs effective 1 April 2026 (summary below).',
   reminder: 'Tariffs can change without notice, so guests should confirm the latest rates directly with the site operator before travel.',
-  ctaLabel: 'Download SAFCOL tariff notice',
-  imageLabel: 'View tariff notice image',
+  imageLabel: 'View full SAFCOL tariff notice image',
   effectiveDate: '1 April 2026',
-  tariffs: [
-    { site: 'Lone Creek', saCitizen: 'R55-00 per person', foreignNational: 'R86-00 per person' },
-    { site: 'Bridal Veil', saCitizen: 'R28-00 per person', foreignNational: 'R65-00 per person' },
-    { site: 'Mac Mac Pools', saCitizen: 'R55-00 per person', foreignNational: 'R86-00 per person' },
-    { site: 'Mac Mac Falls', saCitizen: 'R28-00 per person', foreignNational: 'R65-00 per person' },
-    { site: 'Green Heritage', saCitizen: 'R55-00 per person', foreignNational: 'R86-00 per person' },
-    { site: 'Maria Shires', saCitizen: 'R28-00 per person', foreignNational: 'R65-00 per person' },
-    { site: 'Lisbon Falls', saCitizen: 'R28-00 per person', foreignNational: 'R65-00 per person' },
-    { site: 'Berlin Falls', saCitizen: 'R28-00 per person', foreignNational: 'R65-00 per person' },
-    { site: 'Debengeni Falls (Tzaneen)', saCitizen: 'R55-00 per person', foreignNational: 'R86-00 per person' },
-    { site: 'Overnight Hiking Trails', saCitizen: 'R245-00 per person', foreignNational: 'R245-00 per person' }
+  highlights: [
+    'Most waterfall entries are either R28 or R55 per person for SA citizens with ID.',
+    'Most corresponding SADC/foreign passport rates are R65 or R86 per person.',
+    'Overnight hiking trails are R245 per person for both categories.'
   ],
   discountNotes: [
     'School groups (learners/students) of more than 50 people get a 15% discount.',

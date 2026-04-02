@@ -82,8 +82,8 @@ const mobileAttractions = attractions.slice(0, 4);
       <h2>Area Ecotourism Tariffs</h2>
       <p>{areaNotice.summary}</p>
       <ul>
-        {areaNotice.tariffs.map((tariff) => (
-          <li><strong>{tariff.site}:</strong> SA — {tariff.saCitizen}; SADC/Foreign — {tariff.foreignNational}</li>
+        {areaNotice.highlights.map((highlight) => (
+          <li>{highlight}</li>
         ))}
       </ul>
       <ul>
@@ -94,7 +94,6 @@ const mobileAttractions = attractions.slice(0, 4);
       <p><strong>Important:</strong> {areaNotice.reminder}</p>
       <p><small>Effective date shown on notice: {areaNotice.effectiveDate}</small></p>
       <p>
-        <a class="btn btn-secondary" href={tourismTariffs.src} download="tourism-tariffs.jpeg">{areaNotice.ctaLabel}</a>
         <a class="btn btn-secondary" href={tourismTariffs.src} target="_blank" rel="noopener noreferrer">{areaNotice.imageLabel}</a>
       </p>
     </article>
