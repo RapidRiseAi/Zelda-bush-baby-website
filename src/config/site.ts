@@ -4,7 +4,10 @@ import hostImage from '../../host.jpeg';
 import pricingSnapshotImage from '../../pricing-snapshot-image.png';
 import slowDownImage from '../../slow-down-and-settle-into-nature.png';
 
-const carouselModules = import.meta.glob('../../carousel*.png', { eager: true });
+const carouselModules = {
+  ...import.meta.glob('../../carousel*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true }),
+  ...import.meta.glob('../../public/carousel*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true })
+};
 const carouselAssetByNumber = new Map(
   Object.entries(carouselModules).map(([path, module]) => {
     const imageNumber = Number(path.match(/carousel(\d+)/i)?.[1] ?? 0);
@@ -15,6 +18,11 @@ const carouselAssetByNumber = new Map(
 );
 
 const carouselAssets = Array.from({ length: 15 }, (_, index) => carouselAssetByNumber.get(index + 1)).filter(Boolean);
+const missingCarouselSlots = Array.from({ length: 15 }, (_, index) => index + 1).filter((slot) => !carouselAssetByNumber.get(slot));
+
+if (missingCarouselSlots.length) {
+  console.warn(`[carousel] Missing carousel image files for slots: ${missingCarouselSlots.join(', ')}.`);
+}
 
 export const siteConfig = {
   businessName: 'Bush Baby',
