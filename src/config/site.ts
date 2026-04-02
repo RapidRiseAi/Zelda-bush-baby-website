@@ -21,7 +21,8 @@ const carouselAssetByNumber = new Map(
   })
 );
 
-const carouselAssets = Array.from({ length: 15 }, (_, index) => carouselAssetByNumber.get(index + 1)).filter(Boolean);
+const fallbackCarouselImage = carouselAssetByNumber.get(12) ?? carouselAssetByNumber.get(1) ?? '';
+const carouselAssets = Array.from({ length: 15 }, (_, index) => carouselAssetByNumber.get(index + 1) ?? fallbackCarouselImage).filter(Boolean);
 const missingCarouselSlots = Array.from({ length: 15 }, (_, index) => index + 1).filter((slot) => !carouselAssetByNumber.get(slot));
 
 if (missingCarouselSlots.length) {
