@@ -5,14 +5,16 @@ import pricingSnapshotImage from '../../pricing-snapshot-image.png';
 import slowDownImage from '../../slow-down-and-settle-into-nature.png';
 
 const carouselModules = {
+  ...import.meta.glob('../../carouse*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true }),
   ...import.meta.glob('../../carousel*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true }),
   ...import.meta.glob('../../carousell*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true }),
+  ...import.meta.glob('../../public/carouse*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true }),
   ...import.meta.glob('../../public/carousel*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true }),
   ...import.meta.glob('../../public/carousell*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true })
 };
 const carouselAssetByNumber = new Map(
   Object.entries(carouselModules).map(([path, module]) => {
-    const imageNumber = Number(path.match(/carousell?(\d+)/i)?.[1] ?? 0);
+    const imageNumber = Number(path.match(/carouse(?:l{0,2})(\d+)/i)?.[1] ?? 0);
     const image = (module as { default?: { src?: string } | string }).default ?? module;
     const imageSrc = typeof image === 'string' ? image : image.src ?? '';
     return [imageNumber, imageSrc] as const;
