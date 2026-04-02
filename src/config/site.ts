@@ -4,12 +4,16 @@ import hostImage from '../../host.jpeg';
 import pricingSnapshotImage from '../../pricing-snapshot-image.png';
 import slowDownImage from '../../slow-down-and-settle-into-nature.png';
 
-const carouselModules = import.meta.glob('../../carousel*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true });
+const carouselModules = import.meta.glob('../../carousel*.png', { eager: true });
 const carouselAssets = Object.entries(carouselModules)
   .sort(([a], [b]) => {
     const aNumber = Number(a.match(/carousel(\d+)/i)?.[1] ?? 0);
     const bNumber = Number(b.match(/carousel(\d+)/i)?.[1] ?? 0);
     return aNumber - bNumber;
+  })
+  .filter(([path]) => {
+    const imageNumber = Number(path.match(/carousel(\d+)/i)?.[1] ?? 0);
+    return imageNumber >= 1 && imageNumber <= 15;
   })
   .map(([, module]) => {
     const image = (module as { default?: { src?: string } | string }).default ?? module;
