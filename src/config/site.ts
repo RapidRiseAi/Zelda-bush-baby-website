@@ -122,6 +122,15 @@ export const attractions = [
   }
 ];
 
+export const areaNotice = {
+  title: 'Local Area Notice (External)',
+  summary:
+    'Nearby ecotourism site entry fees were updated effective 1 April 2026 (per SAFCOL notice). These are third-party attraction fees and are separate from Bush Baby accommodation pricing.',
+  reminder: 'Tariffs can change without notice, so guests should confirm the latest rates directly with the site operator before travel.',
+  ctaLabel: 'Download SAFCOL tariff notice',
+  effectiveDate: '1 April 2026'
+};
+
 export const faqItems = [
   {
     question: 'How do bookings work?',
@@ -164,4 +173,3 @@ export const bookingTerms = [
   'Cancellations less than 7 days before check-in may be non-refundable.',
   'Date changes are subject to availability and peak periods may have different terms.'
 ];
-
