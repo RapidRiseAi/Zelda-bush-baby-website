@@ -5,21 +5,16 @@ import pricingSnapshotImage from '../../pricing-snapshot-image.png';
 import slowDownImage from '../../slow-down-and-settle-into-nature.png';
 
 const carouselModules = import.meta.glob('../../carousel*.png', { eager: true });
-const carouselAssets = Object.entries(carouselModules)
-  .sort(([a], [b]) => {
-    const aNumber = Number(a.match(/carousel(\d+)/i)?.[1] ?? 0);
-    const bNumber = Number(b.match(/carousel(\d+)/i)?.[1] ?? 0);
-    return aNumber - bNumber;
-  })
-  .filter(([path]) => {
+const carouselAssetByNumber = new Map(
+  Object.entries(carouselModules).map(([path, module]) => {
     const imageNumber = Number(path.match(/carousel(\d+)/i)?.[1] ?? 0);
-    return imageNumber >= 1 && imageNumber <= 15;
-  })
-  .map(([, module]) => {
     const image = (module as { default?: { src?: string } | string }).default ?? module;
-    return typeof image === 'string' ? image : image.src ?? '';
+    const imageSrc = typeof image === 'string' ? image : image.src ?? '';
+    return [imageNumber, imageSrc] as const;
   })
-  .filter(Boolean);
+);
+
+const carouselAssets = Array.from({ length: 15 }, (_, index) => carouselAssetByNumber.get(index + 1)).filter(Boolean);
 
 export const siteConfig = {
   businessName: 'Bush Baby',
