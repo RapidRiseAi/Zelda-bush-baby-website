@@ -124,11 +124,27 @@ export const attractions = [
 
 export const areaNotice = {
   title: 'Local Area Notice (External)',
-  summary:
-    'Nearby ecotourism site entry fees were updated effective 1 April 2026 (per SAFCOL notice). These are third-party attraction fees and are separate from Bush Baby accommodation pricing.',
+  summary: 'Updated SAFCOL ecotourism tariffs effective 1 April 2026.',
   reminder: 'Tariffs can change without notice, so guests should confirm the latest rates directly with the site operator before travel.',
   ctaLabel: 'Download SAFCOL tariff notice',
-  effectiveDate: '1 April 2026'
+  imageLabel: 'View tariff notice image',
+  effectiveDate: '1 April 2026',
+  tariffs: [
+    { site: 'Lone Creek', saCitizen: 'R55-00 per person', foreignNational: 'R86-00 per person' },
+    { site: 'Bridal Veil', saCitizen: 'R28-00 per person', foreignNational: 'R65-00 per person' },
+    { site: 'Mac Mac Pools', saCitizen: 'R55-00 per person', foreignNational: 'R86-00 per person' },
+    { site: 'Mac Mac Falls', saCitizen: 'R28-00 per person', foreignNational: 'R65-00 per person' },
+    { site: 'Green Heritage', saCitizen: 'R55-00 per person', foreignNational: 'R86-00 per person' },
+    { site: 'Maria Shires', saCitizen: 'R28-00 per person', foreignNational: 'R65-00 per person' },
+    { site: 'Lisbon Falls', saCitizen: 'R28-00 per person', foreignNational: 'R65-00 per person' },
+    { site: 'Berlin Falls', saCitizen: 'R28-00 per person', foreignNational: 'R65-00 per person' },
+    { site: 'Debengeni Falls (Tzaneen)', saCitizen: 'R55-00 per person', foreignNational: 'R86-00 per person' },
+    { site: 'Overnight Hiking Trails', saCitizen: 'R245-00 per person', foreignNational: 'R245-00 per person' }
+  ],
+  discountNotes: [
+    'School groups (learners/students) of more than 50 people get a 15% discount.',
+    'South African senior citizens above 60 years get a 15% discount.'
+  ]
 };
 
 export const faqItems = [
