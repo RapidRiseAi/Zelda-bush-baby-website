@@ -1,7 +1,8 @@
 ---
 import ImageCarousel from '../ImageCarousel.astro';
 import FaqAccordion from '../FaqAccordion.astro';
-import { siteConfig, cabinFacts, homeHighlights, pricing, attractions, faqItems } from '../../config/site';
+import tourismTariffs from '../../../tourism-tariffs.jpeg';
+import { siteConfig, cabinFacts, homeHighlights, pricing, attractions, faqItems, areaNotice } from '../../config/site';
 ---
 
 <section class="hero" style={`--hero:url(${siteConfig.assets.hero})`}>
@@ -72,6 +73,30 @@ import { siteConfig, cabinFacts, homeHighlights, pricing, attractions, faqItems 
   <div class="container">
     <h2>Nearby Attractions</h2>
     <div class="grid-3">{attractions.slice(0, 6).map((item) => <article class="card"><h3>{item.title}</h3><p>{item.description}</p><small>{item.driveNote}</small></article>)}</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow">
+    <article class="card">
+      <h2>{areaNotice.title}</h2>
+      <p>{areaNotice.summary}</p>
+      <ul>
+        {areaNotice.highlights.map((highlight) => (
+          <li>{highlight}</li>
+        ))}
+      </ul>
+      <ul>
+        {areaNotice.discountNotes.map((note) => (
+          <li>{note}</li>
+        ))}
+      </ul>
+      <p><strong>Important:</strong> {areaNotice.reminder}</p>
+      <p><small>Effective date shown on notice: {areaNotice.effectiveDate}</small></p>
+      <p>
+        <a class="btn btn-secondary notice-link-btn" href={tourismTariffs.src} target="_blank" rel="noopener noreferrer">{areaNotice.imageLabel}</a>
+      </p>
+    </article>
   </div>
 </section>
 

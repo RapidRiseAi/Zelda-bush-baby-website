@@ -3,18 +3,31 @@ import heroImage from '../../hero-image.png';
 import hostImage from '../../host.jpeg';
 import pricingSnapshotImage from '../../pricing-snapshot-image.png';
 import slowDownImage from '../../slow-down-and-settle-into-nature.png';
-import carousel1 from '../../carousel1.png';
-import carousel2 from '../../carousel2.png';
-import carousel3 from '../../carousel3.png';
-import carousel4 from '../../carousel4.png';
-import carousel5 from '../../carousel5.png';
-import carousel6 from '../../carousel6.png';
-import carousel7 from '../../carousel7.png';
-import carousel8 from '../../carousel8.png';
-import carousel9 from '../../carousel9.png';
-import carousel10 from '../../carousel10.png';
-import carousel11 from '../../carousel11.png';
-import carousel12 from '../../carousel12.png';
+
+const carouselModules = {
+  ...import.meta.glob('../../carouse*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true }),
+  ...import.meta.glob('../../carousel*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true }),
+  ...import.meta.glob('../../carousell*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true }),
+  ...import.meta.glob('../../public/carouse*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true }),
+  ...import.meta.glob('../../public/carousel*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true }),
+  ...import.meta.glob('../../public/carousell*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true })
+};
+const carouselAssetByNumber = new Map(
+  Object.entries(carouselModules).map(([path, module]) => {
+    const imageNumber = Number(path.match(/carouse(?:l{0,2})(\d+)/i)?.[1] ?? 0);
+    const image = (module as { default?: { src?: string } | string }).default ?? module;
+    const imageSrc = typeof image === 'string' ? image : image.src ?? '';
+    return [imageNumber, imageSrc] as const;
+  })
+);
+
+const fallbackCarouselImage = carouselAssetByNumber.get(12) ?? carouselAssetByNumber.get(1) ?? '';
+const carouselAssets = Array.from({ length: 15 }, (_, index) => carouselAssetByNumber.get(index + 1) ?? fallbackCarouselImage).filter(Boolean);
+const missingCarouselSlots = Array.from({ length: 15 }, (_, index) => index + 1).filter((slot) => !carouselAssetByNumber.get(slot));
+
+if (missingCarouselSlots.length) {
+  console.warn(`[carousel] Missing carousel image files for slots: ${missingCarouselSlots.join(', ')}.`);
+}
 
 export const siteConfig = {
   businessName: 'Bush Baby',
@@ -44,20 +57,7 @@ export const siteConfig = {
     aboutHero: heroImage.src,
     aboutHost: hostImage.src,
     contactHero: heroImage.src,
-    carousel: [
-      carousel1.src,
-      carousel2.src,
-      carousel3.src,
-      carousel4.src,
-      carousel5.src,
-      carousel6.src,
-      carousel7.src,
-      carousel8.src,
-      carousel9.src,
-      carousel10.src,
-      carousel11.src,
-      carousel12.src
-    ]
+    carousel: carouselAssets
   }
 };
 
@@ -122,6 +122,23 @@ export const attractions = [
   }
 ];
 
+export const areaNotice = {
+  title: 'Local Area Notice (External)',
+  summary: 'Updated SAFCOL ecotourism tariffs effective 1 April 2026 (summary below).',
+  reminder: 'Tariffs can change without notice, so guests should confirm the latest rates directly with the site operator before travel.',
+  imageLabel: 'View full SAFCOL tariff notice image',
+  effectiveDate: '1 April 2026',
+  highlights: [
+    'Most waterfall entries are either R28 or R55 per person for SA citizens with ID.',
+    'Most corresponding SADC/foreign passport rates are R65 or R86 per person.',
+    'Overnight hiking trails are R245 per person for both categories.'
+  ],
+  discountNotes: [
+    'School groups (learners/students) of more than 50 people get a 15% discount.',
+    'South African senior citizens above 60 years get a 15% discount.'
+  ]
+};
+
 export const faqItems = [
   {
     question: 'How do bookings work?',
@@ -164,4 +181,3 @@ export const bookingTerms = [
   'Cancellations less than 7 days before check-in may be non-refundable.',
   'Date changes are subject to availability and peak periods may have different terms.'
 ];
-
