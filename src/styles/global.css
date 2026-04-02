@@ -26,6 +26,8 @@ img { max-width: 100%; display: block; border-radius: var(--radius); }
 .btn-primary { background: var(--accent); color: #fff; }
 .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); }
 .btn-secondary { border: 1px solid #ffffffb3; color: #fff; }
+.notice-link-btn { border-color: var(--line); color: var(--text); background: #fff; }
+.notice-link-btn:hover { background: #f7f3ee; }
 .site-header { position: fixed; top: 0; width: 100%; z-index: 20; transition: .25s; }
 .site-header.solid { background: #2f251fe6; backdrop-filter: blur(8px); }
 .nav-wrap { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; }
