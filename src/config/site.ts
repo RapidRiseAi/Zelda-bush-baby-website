@@ -3,18 +3,19 @@ import heroImage from '../../hero-image.png';
 import hostImage from '../../host.jpeg';
 import pricingSnapshotImage from '../../pricing-snapshot-image.png';
 import slowDownImage from '../../slow-down-and-settle-into-nature.png';
-import carousel1 from '../../carousel1.png';
-import carousel2 from '../../carousel2.png';
-import carousel3 from '../../carousel3.png';
-import carousel4 from '../../carousel4.png';
-import carousel5 from '../../carousel5.png';
-import carousel6 from '../../carousel6.png';
-import carousel7 from '../../carousel7.png';
-import carousel8 from '../../carousel8.png';
-import carousel9 from '../../carousel9.png';
-import carousel10 from '../../carousel10.png';
-import carousel11 from '../../carousel11.png';
-import carousel12 from '../../carousel12.png';
+
+const carouselModules = import.meta.glob('../../carousel*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true });
+const carouselAssets = Object.entries(carouselModules)
+  .sort(([a], [b]) => {
+    const aNumber = Number(a.match(/carousel(\d+)/i)?.[1] ?? 0);
+    const bNumber = Number(b.match(/carousel(\d+)/i)?.[1] ?? 0);
+    return aNumber - bNumber;
+  })
+  .map(([, module]) => {
+    const image = (module as { default?: { src?: string } | string }).default ?? module;
+    return typeof image === 'string' ? image : image.src ?? '';
+  })
+  .filter(Boolean);
 
 export const siteConfig = {
   businessName: 'Bush Baby',
@@ -44,20 +45,7 @@ export const siteConfig = {
     aboutHero: heroImage.src,
     aboutHost: hostImage.src,
     contactHero: heroImage.src,
-    carousel: [
-      carousel1.src,
-      carousel2.src,
-      carousel3.src,
-      carousel4.src,
-      carousel5.src,
-      carousel6.src,
-      carousel7.src,
-      carousel8.src,
-      carousel9.src,
-      carousel10.src,
-      carousel11.src,
-      carousel12.src
-    ]
+    carousel: carouselAssets
   }
 };
 
