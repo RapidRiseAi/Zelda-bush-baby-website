@@ -26,7 +26,12 @@ const getInitialPosition = (index: number, total: number) => {
           aria-label={`Gallery image ${index + 1}`}
           aria-hidden={index === 0 || index === 1 || index === images.length - 1 ? 'false' : 'true'}
         >
-          <img src={image} alt="Bush Baby cabin and surroundings" loading="lazy" />
+          <img
+            src={image}
+            alt="Bush Baby cabin and surroundings"
+            loading="lazy"
+            class={image.includes('carousel4') ? 'crop-bottom-focus' : undefined}
+          />
         </figure>
       ))}
     </div>

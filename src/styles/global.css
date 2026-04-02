@@ -49,6 +49,7 @@ img { max-width: 100%; display: block; border-radius: var(--radius); }
 .carousel-stage { position: relative; height: clamp(230px, 42vw, 450px); overflow: hidden; border-radius: calc(var(--radius) + 4px); }
 .carousel-item { position: absolute; top: 0; left: 50%; width: min(62%, 760px); height: 100%; margin: 0; transform-origin: center center; transition: transform .55s cubic-bezier(.22,.61,.36,1), opacity .35s ease, filter .35s ease; opacity: 0; pointer-events: none; filter: saturate(85%); }
 .carousel-item img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow); }
+.carousel-item img.crop-bottom-focus { object-position: center bottom; }
 .carousel-item[data-pos="0"] { transform: translateX(-50%) scale(1); opacity: 1; z-index: 4; filter: none; }
 .carousel-item[data-pos="-1"] { transform: translateX(-112%) scale(.82); opacity: .85; z-index: 3; }
 .carousel-item[data-pos="1"] { transform: translateX(12%) scale(.82); opacity: .85; z-index: 3; }
